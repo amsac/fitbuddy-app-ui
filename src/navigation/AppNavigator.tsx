@@ -12,23 +12,31 @@ import { RootStackParamList } from '@/navigation/types';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function AppNavigator() {
-  const theme = useTheme();
-    const baseNavTheme = theme.mode === 'dark' ? DarkTheme : DefaultTheme;
-  const navTheme = {
+  const appTheme = useTheme();
+  const isDark = appTheme.mode === 'dark';
+  const baseNavTheme = isDark ? DarkTheme : DefaultTheme;
+  const navTheme: NavigationTheme = {
     ...baseNavTheme,
+    dark: isDark,
     colors: {
-...baseNavTheme.colors,
-      background: theme.colors.background,
-      card: theme.colors.background,
-      text: theme.colors.text,
-      border: theme.colors.border,
-      primary: theme.colors.primary,
+      ...baseNavTheme.colors,
+      background: appTheme.colors.background,
+      card: appTheme.colors.background,
+      text: appTheme.colors.text,
+      border: appTheme.colors.border,
+      primary: appTheme.colors.primary,
     },
   };
 
   return (
     <NavigationContainer theme={navTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false, animation: 'slide_from_right', contentStyle: { backgroundColor: theme.colors.background } }}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          animation: 'slide_from_right',
+          contentStyle: { backgroundColor: appTheme.colors.background },
+        }}
+      >
         <Stack.Screen name="Dashboard" component={DashboardScreen} />
         <Stack.Screen name="Exercises" component={ExerciseCatalogScreen} />
         <Stack.Screen name="CreateTemplate" component={CreateTemplateScreen} />
