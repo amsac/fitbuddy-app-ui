@@ -1,16 +1,54 @@
-# React + Vite
+# FITBUDDY Mobile
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A production-oriented Expo React Native app for the FITBUDDY fitness tracking platform. The app is mobile-first, TypeScript-based, and organized around a scalable feature structure for future auth, charts, plans, AI coaching, PR tracking, notifications, and richer rest timers.
 
-Currently, two official plugins are available:
+## Tech stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Expo + React Native
+- React Navigation native stack
+- Axios API client
+- Zustand theme store
+- AsyncStorage theme persistence
+- React Native Reanimated + Gesture Handler
+- Expo Vector Icons
+- TypeScript
 
-## React Compiler
+## API
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The mobile client uses the existing backend at:
 
-## Expanding the ESLint configuration
+```txt
+http://localhost:8080
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The current app intentionally skips authentication and uses `userId = 1` for template/session flows.
+
+## Project structure
+
+```txt
+src/
+  api/          axios client and FITBUDDY endpoint wrappers
+  components/   reusable cards, accordions, buttons, forms, modal, toast, video
+  hooks/        theme hooks
+  navigation/   native stack navigation
+  screens/      dashboard, catalog, template creation, workouts, history
+  store/        persisted lightweight state
+  theme/        centralized design tokens and palettes
+  types/        shared API/domain types
+  utils/        formatting and parsing helpers
+```
+
+## Run locally
+
+```bash
+npm install
+npm start
+```
+
+Then launch the app in Expo Go, an iOS simulator, or an Android emulator.
+
+> Note: the backend URL is `localhost`. On a physical device, update `src/api/client.ts` to point to your machine's LAN IP or a deployed backend URL.
+
+## PR compatibility note
+
+This branch intentionally avoids adding placeholder binary image assets to keep web-based PR creation tools happy. Add final Expo app icons and splash assets later through the normal design asset workflow.
