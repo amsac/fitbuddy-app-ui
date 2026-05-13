@@ -1,4 +1,4 @@
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme, Theme as NavigationTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { DashboardScreen } from '@/screens/DashboardScreen';
 import { ExerciseCatalogScreen } from '@/screens/ExerciseCatalogScreen';
@@ -13,10 +13,11 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function AppNavigator() {
   const theme = useTheme();
+    const baseNavTheme = theme.mode === 'dark' ? DarkTheme : DefaultTheme;
   const navTheme = {
-    ...(theme.mode === 'dark' ? DarkTheme : DefaultTheme),
+    ...baseNavTheme,
     colors: {
-      ...(theme.mode === 'dark' ? DarkTheme.colors : DefaultTheme.colors),
+...baseNavTheme.colors,
       background: theme.colors.background,
       card: theme.colors.background,
       text: theme.colors.text,

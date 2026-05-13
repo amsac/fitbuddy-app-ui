@@ -12,15 +12,15 @@ type ThemeState = {
   toggleTheme: () => Promise<void>;
   setMode: (mode: ThemeMode) => Promise<void>;
 };
-
+const isThemeMode = (value: string | null): value is ThemeMode => value === 'light' || value === 'dark';
 export const useThemeStore = create<ThemeState>((set, get) => ({
   mode: 'dark',
   hydrated: false,
   theme: makeTheme('dark'),
   hydrate: async () => {
     const saved = await AsyncStorage.getItem(THEME_STORAGE_KEY);
-    const mode = saved === 'light' ? 'light' : 'dark';
-    set({ mode, hydrated: true, theme: makeTheme(mode) });
+    const mode = isThemeMode(saved) ? saved : 'dark';
+        set({ mode, hydrated: true, theme: makeTheme(mode) });
   },
   toggleTheme: async () => {
     const next = get().mode === 'dark' ? 'light' : 'dark';
